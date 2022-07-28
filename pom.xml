@@ -28,7 +28,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
-                <artifactId>order-domain.core</artifactId>
+                <artifactId>order-domain-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -39,17 +39,17 @@
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>order-application</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>order-data-access</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>order-messaging</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
