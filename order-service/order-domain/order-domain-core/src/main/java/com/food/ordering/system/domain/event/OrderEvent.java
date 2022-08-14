@@ -13,4 +13,12 @@ public abstract class OrderEvent implements DomainEvent<Order> {
         this.order = order;
         this.createdAt = createdAt;
     }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
 }

@@ -4,12 +4,7 @@ import com.food.order.system.order.service.domain.dto.create.CreateOrderCommandD
 import com.food.order.system.order.service.domain.dto.create.CreatedOrderResponseDTO;
 import com.food.order.system.order.service.domain.dto.track.TrackOrderQuery;
 import com.food.order.system.order.service.domain.dto.track.TrackOrderResponse;
-import com.food.order.system.order.service.domain.mapper.OrderDataMapper;
 import com.food.order.system.order.service.domain.ports.input.service.OrderApplicationService;
-import com.food.order.system.order.service.domain.ports.output.repository.CustomerRepository;
-import com.food.order.system.order.service.domain.ports.output.repository.RestaurantRepository;
-import com.food.ordering.system.domain.entity.Restaurant;
-import com.food.ordering.system.domain.exception.OrderDomainException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
