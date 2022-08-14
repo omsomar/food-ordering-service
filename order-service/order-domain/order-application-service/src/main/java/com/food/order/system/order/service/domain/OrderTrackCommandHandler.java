@@ -1,4 +1,4 @@
-package com.food.order.system.order.service.domain.ports;
+package com.food.order.system.order.service.domain;
 
 import com.food.order.system.order.service.domain.dto.track.TrackOrderQuery;
 import com.food.order.system.order.service.domain.dto.track.TrackOrderResponse;
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Component;
 public class OrderTrackCommandHandler {
 
     TrackOrderResponse trackOrderResponse(TrackOrderQuery trackOrderQuery){
-
+        return null;
     }
 }

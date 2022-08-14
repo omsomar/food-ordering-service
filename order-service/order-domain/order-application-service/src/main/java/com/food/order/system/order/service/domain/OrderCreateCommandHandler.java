@@ -1,10 +1,11 @@
-package com.food.order.system.order.service.domain.ports;
+package com.food.order.system.order.service.domain;
 
 import com.food.order.system.order.service.domain.dto.create.CreateOrderCommandDTO;
 import com.food.order.system.order.service.domain.dto.create.CreatedOrderResponseDTO;
 import com.food.order.system.order.service.domain.dto.track.TrackOrderQuery;
 import com.food.order.system.order.service.domain.dto.track.TrackOrderResponse;
 import com.food.order.system.order.service.domain.mapper.OrderDataMapper;
+import com.food.order.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.food.order.system.order.service.domain.ports.output.repository.CustomerRepository;
 import com.food.order.system.order.service.domain.ports.output.repository.OrderRepository;
 import com.food.order.system.order.service.domain.ports.output.repository.RestaurantRepository;
@@ -35,6 +36,8 @@ public class OrderCreateCommandHandler {
 
     private final OrderDataMapper orderDataMapper;
 
+    private final ApplicationDomainEventPublisher applicationDomainEventPublisher;
+
     @Transactional
     public CreatedOrderResponseDTO createOrder(CreateOrderCommandDTO createOrderCommand) {
         checkCustomer(createOrderCommand.getCustomerId());
@@ -42,7 +45,8 @@ public class OrderCreateCommandHandler {
         Order order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
         OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant);
         Order orderResult = saveOrder(order);
-        log.info("");
+        log.info("Order is created with id: {}", orderResult.getId().getValue());
+        applicationDomainEventPublisher.publish(orderCreatedEvent);
         return orderDataMapper.orderToCreateOrderResponse(orderResult, "Order created successfully");
     }
 
