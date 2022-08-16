@@ -1,6 +1,6 @@
 package com.food.ordering.system.domain.exception;
 
-public class OrderDomainException extends RuntimeException{
+public class DomainException extends RuntimeException{
 
     /**
      * Constructs a new runtime exception with the specified detail message.
@@ -10,7 +10,7 @@ public class OrderDomainException extends RuntimeException{
      * @param message the detail message. The detail message is saved for
      *                later retrieval by the {@link #getMessage()} method.
      */
-    public OrderDomainException(String message) {
+    public DomainException(String message) {
         super(message);
     }
 
@@ -28,7 +28,7 @@ public class OrderDomainException extends RuntimeException{
      *                unknown.)
      * @since 1.4
      */
-    public OrderDomainException(String message, Throwable cause) {
+    public DomainException(String message, Throwable cause) {
         super(message, cause);
     }
 }

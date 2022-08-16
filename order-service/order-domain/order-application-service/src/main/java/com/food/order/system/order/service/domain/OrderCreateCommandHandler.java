@@ -2,10 +2,7 @@ package com.food.order.system.order.service.domain;
 
 import com.food.order.system.order.service.domain.dto.create.CreateOrderCommandDTO;
 import com.food.order.system.order.service.domain.dto.create.CreatedOrderResponseDTO;
-import com.food.order.system.order.service.domain.dto.track.TrackOrderQuery;
-import com.food.order.system.order.service.domain.dto.track.TrackOrderResponse;
 import com.food.order.system.order.service.domain.mapper.OrderDataMapper;
-import com.food.order.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.food.order.system.order.service.domain.ports.output.repository.CustomerRepository;
 import com.food.order.system.order.service.domain.ports.output.repository.OrderRepository;
 import com.food.order.system.order.service.domain.ports.output.repository.RestaurantRepository;
@@ -13,7 +10,7 @@ import com.food.ordering.system.domain.OrderDomainService;
 import com.food.ordering.system.domain.entity.Order;
 import com.food.ordering.system.domain.entity.Restaurant;
 import com.food.ordering.system.domain.event.OrderCreatedEvent;
-import com.food.ordering.system.domain.exception.OrderDomainException;
+import com.food.ordering.system.domain.exception.DomainException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -54,14 +51,14 @@ public class OrderCreateCommandHandler {
         Restaurant restaurant = orderDataMapper.createOrderCommandToRestaurant(createOrderCommand);
         return restaurantRepository.findRestaurantInformation(restaurant.getId()).orElseThrow(() -> {
             log.error("Could not find the restaurant with id {}", restaurant.getId());
-            throw new OrderDomainException("Could not find the restaurant with id: " + restaurant.getId());
+            throw new DomainException("Could not find the restaurant with id: " + restaurant.getId());
         });
     }
 
     private void checkCustomer(UUID customerId) {
         customerRepository.findCustomer(customerId).orElseThrow( () -> {
             log.warn("Could not find customer with id: {}", customerId);
-            throw new OrderDomainException("Could not find customer with id: " + customerId);
+            throw new DomainException("Could not find customer with id: " + customerId);
         });
     }
 
@@ -69,7 +66,7 @@ public class OrderCreateCommandHandler {
         Order orderResult = orderRepository.save(order);
         if(orderResult == null) {
             log.warn("Could not save order!");
-            throw new OrderDomainException("Could not save order!");
+            throw new DomainException("Could not save order!");
         }
         log.info("Order is saved with id: {}", orderResult.getId().getValue());
         return order;
