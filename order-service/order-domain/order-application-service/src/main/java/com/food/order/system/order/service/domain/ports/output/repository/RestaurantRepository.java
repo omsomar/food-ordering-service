@@ -6,6 +6,5 @@ import com.food.ordering.system.domain.valueobject.RestaurantId;
 import java.util.Optional;
 
 public interface RestaurantRepository {
-
-    Optional<Restaurant> findRestaurantInformation(RestaurantId restaurantId);
+    Optional<Restaurant> findRestaurantInformation(Restaurant restaurant);
 }

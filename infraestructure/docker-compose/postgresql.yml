@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  postgresql:
+    image: postgres:14.5
+    volumes:
+      - "./volumes/postgrest/data:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=food_ordering_system
+      - POSTGRES_USER=food_admin
+      - POSTGRES_PASSWORD=food_admin
