@@ -1,13 +1,13 @@
 package com.food.ordering.system.order.service.messaging.mapper;
 
-import com.food.order.system.order.service.domain.dto.message.PaymentResponse;
-import com.food.order.system.order.service.domain.dto.message.RestaurantApprovalResponse;
-import com.food.ordering.system.domain.entity.Order;
-import com.food.ordering.system.domain.event.OrderCancelledEvent;
-import com.food.ordering.system.domain.event.OrderCreatedEvent;
-import com.food.ordering.system.domain.event.OrderPaidEvent;
-import com.food.ordering.system.domain.valueobject.OrderApprovalStatus;
-import com.food.ordering.system.domain.valueobject.PaymentStatus;
+import com.food.ordering.system.order.service.domain.dto.message.PaymentResponse;
+import com.food.ordering.system.order.service.domain.dto.message.RestaurantApprovalResponse;
+import com.food.ordering.system.order.service.domain.entity.Order;
+import com.food.ordering.system.order.service.domain.event.OrderCancelledEvent;
+import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
+import com.food.ordering.system.order.service.domain.event.OrderPaidEvent;
+import com.food.ordering.system.order.service.domain.valueobject.OrderApprovalStatus;
+import com.food.ordering.system.order.service.domain.valueobject.PaymentStatus;
 import com.food.ordering.system.kafka.order.avro.model.PaymentOrderStatus;
 import com.food.ordering.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel;
@@ -15,10 +15,11 @@ import com.food.ordering.system.kafka.order.avro.model.Product;
 import com.food.ordering.system.kafka.order.avro.model.RestaurantApprovalRequestAvroModel;
 import com.food.ordering.system.kafka.order.avro.model.RestaurantApprovalResponseAvroModel;
 import com.food.ordering.system.kafka.order.avro.model.RestaurantOrderStatus;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+@Component
 public class OrderMessagingDataMapper {
 
     public PaymentRequestAvroModel orderCreatedEventToPaymentRequestAvroModel(OrderCreatedEvent orderCreatedEvent) {
@@ -54,7 +55,7 @@ public class OrderMessagingDataMapper {
                     .setSagaId("")
                     .setOrderId(order.getId().getValue().toString())
                     .setRestaurantId(order.getRestaurantId().getValue().toString())
-                    .setRestaurantorderStatus(RestaurantOrderStatus.valueOf(order.getOrderStatus().name()))
+                    .setRestaurantOrderStatus(RestaurantOrderStatus.valueOf(order.getOrderStatus().name()))
                     .setProducts(order.getItems().stream().map(orderItem ->
                             Product.newBuilder()
                                     .setId(orderItem.getProduct().getId().getValue().toString())
@@ -62,7 +63,7 @@ public class OrderMessagingDataMapper {
                                     .build()).collect(Collectors.toList()))
                     .setPrice(order.getPrice().getAmount())
                     .setCreatedAt(domainEvent.getCreatedAt().toInstant())
-                    .setRestaurantorderStatus(RestaurantOrderStatus.PAID)
+                    .setRestaurantOrderStatus(RestaurantOrderStatus.PAID)
                     .build();
     }
 

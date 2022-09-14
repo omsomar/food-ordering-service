@@ -30,6 +30,6 @@ public class PaymentRepositoryImpl implements PaymentRespository {
 
     @Override
     public Optional<Payment> findByOrderId(UUID orderId) {
-        return paymentJpaRepository.findByOrderId(orderId).map(paymentDataaccessMapper::paymentEntityToPayment);
+        return paymentJpaRepository.findByOrdenId(orderId).map(paymentDataaccessMapper::paymentEntityToPayment);
     }
 }

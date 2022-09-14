@@ -1,8 +1,8 @@
 package com.food.ordering.system.order.service.messaging.publisher.kafka;
 
-import com.food.order.system.order.service.domain.config.OrderServiceConfigData;
-import com.food.order.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
-import com.food.ordering.system.domain.event.OrderCreatedEvent;
+import com.food.ordering.system.order.service.domain.config.OrderServiceConfigData;
+import com.food.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
+import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import com.food.ordering.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import com.food.ordering.system.kafka.producer.KafkaMessageHelper;
 import com.food.ordering.system.kafka.producer.service.KafkaProducer;
@@ -37,6 +37,7 @@ public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequ
                             "PaymentRequestAvroModel"));
             log.info("PaymentRequestAvroModel sent to kafka for order id: {}", paymentRequestAvroModel.getOrderId());
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("Error while sending PaymentRequestAvroModel message" +
                     " to kafka with order id: {}, error: {}", orderId, e.getMessage());
         }

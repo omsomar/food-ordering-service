@@ -1,7 +1,7 @@
 package com.food.ordering.system.restaurant.service.messaging.mapper;
 
-import com.food.ordering.system.domain.valueobject.ProductId;
-import com.food.ordering.system.domain.valueobject.RestaurantOrderStatus;
+import com.food.ordering.system.order.service.domain.valueobject.ProductId;
+import com.food.ordering.system.order.service.domain.valueobject.RestaurantOrderStatus;
 import com.food.ordering.system.kafka.order.avro.model.OrderApprovalStatus;
 import com.food.ordering.system.kafka.order.avro.model.RestaurantApprovalRequestAvroModel;
 import com.food.ordering.system.kafka.order.avro.model.RestaurantApprovalResponseAvroModel;
@@ -54,7 +54,7 @@ public class RestaurantMessagingDataMapper {
                 .restaurantId(restaurantApprovalRequestAvroModel.getRestaurantId())
                 .orderId(restaurantApprovalRequestAvroModel.getOrderId())
                 .restaurantOrderStatus(RestaurantOrderStatus.valueOf(restaurantApprovalRequestAvroModel
-                        .getRestaurantorderStatus().name()))
+                        .getRestaurantOrderStatus().name()))
                 .products(restaurantApprovalRequestAvroModel.getProducts()
                         .stream().map(avroModel ->
                                 Product.builder()

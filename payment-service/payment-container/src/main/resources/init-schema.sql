@@ -14,7 +14,7 @@ CREATE TABLE "payment".payments
 (
     id uuid NOT NULL,
     customer_id uuid NOT NULL,
-    order_id uuid NOT NULL,
+    orden_id uuid NOT NULL,
     price numeric(10,2) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     status payment_status NOT NULL,

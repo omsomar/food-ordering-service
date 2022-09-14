@@ -1,6 +1,6 @@
 package com.food.ordering.system.restaurant.service.domain;
 
-import com.food.ordering.system.domain.valueobject.OrderId;
+import com.food.ordering.system.order.service.domain.valueobject.OrderId;
 import com.food.ordering.system.restaurant.domain.RestaurantDomainService;
 import com.food.ordering.system.restaurant.domain.entity.Restaurant;
 import com.food.ordering.system.restaurant.domain.event.OrderApprovalEvent;
@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -68,7 +67,7 @@ public class RestaurantApprovalRequestHelper {
                 product.updateWithConfirmedMoneyPriceAndAvailability(p.getName(), p.getPrice(), p.isAvailable());
             }
         }));
-        restaurant.getOrderDetail().setId(new OrderId(UUID.fromString(restaurantApprovalRequest.getId())));
+        restaurant.getOrderDetail().setId(new OrderId(UUID.fromString(restaurantApprovalRequest.getOrderId())));
         return restaurant;
     }
 }

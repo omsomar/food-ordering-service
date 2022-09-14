@@ -1,6 +1,6 @@
 package com.food.ordering.system.payment.service.dataaccess.payment.entity;
 
-import com.food.ordering.system.domain.valueobject.PaymentStatus;
+import com.food.ordering.system.order.service.domain.valueobject.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,14 +22,14 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "payments")
+@Table(name = "payments", schema = "payment")
 @Entity
 public class PaymentEntity {
 
     @Id
     private UUID id;
     private UUID customerId;
-    private UUID orderId;
+    private UUID ordenId;
     private BigDecimal price;
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;

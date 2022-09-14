@@ -1,8 +1,8 @@
 package com.food.ordering.system.payment.service.domain;
 
-import com.food.ordering.system.domain.event.publisher.DomainEventPublisher;
-import com.food.ordering.system.domain.valueobject.Money;
-import com.food.ordering.system.domain.valueobject.PaymentStatus;
+import com.food.ordering.system.order.service.domain.event.publisher.DomainEventPublisher;
+import com.food.ordering.system.order.service.domain.valueobject.Money;
+import com.food.ordering.system.order.service.domain.valueobject.PaymentStatus;
 import com.food.ordering.system.payment.service.domain.entity.CreditEntry;
 import com.food.ordering.system.payment.service.domain.entity.CreditHistory;
 import com.food.ordering.system.payment.service.domain.entity.Payment;
@@ -19,12 +19,14 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import static com.food.ordering.system.domain.constant.DomainConstants.UTC;
+import static com.food.ordering.system.order.service.domain.constant.DomainConstants.UTC;
 
 @Slf4j
 public class PaymentDomainServiceImpl implements PaymentDomainService {
+
     @Override
-    public PaymentEvent validateAndInitiatePayment(Payment payment, CreditEntry creditEntry,
+    public PaymentEvent validateAndInitiatePayment(Payment payment,
+                                                   CreditEntry creditEntry,
                                                    List<CreditHistory> creditHistories,
                                                    List<String> failureMessages,
                                                    DomainEventPublisher<PaymentCompletedEvent>
@@ -35,7 +37,6 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
         payment.initializePayment();
         validateCreditEntry(payment, creditEntry, failureMessages);
         subtractCreditEntry(payment, creditEntry);
-        updateCreditHistory(payment, creditHistories, TransactionType.DEBIT);
         validateCreditHistory(creditEntry, creditHistories, failureMessages);
         if(!failureMessages.isEmpty()){
             log.info("Payment initiation is failed for order id: {}", payment.getOrderId().getValue());
@@ -44,6 +45,7 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
 
         }
         log.info("Payment is initiated for order id: {}", payment.getOrderId().getValue());
+        updateCreditHistory(payment, creditHistories, TransactionType.DEBIT);
         payment.updateStatus(PaymentStatus.COMPLETED);
         return new PaymentCompletedEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)), paymentCompletedEventDomainEventPublisher);
     }

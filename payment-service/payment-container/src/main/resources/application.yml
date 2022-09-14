@@ -4,6 +4,7 @@ server:
 logging:
   level:
     com.food.ordering.system: DEBUG
+    org.apache.kafka: OFF
 
 payment-service:
   payment-request-topic-name: payment-request
@@ -18,7 +19,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
   datasource:
-    url: jdbc:postresql://localhost:5432/postgres?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+    url: jdbc:postgresql://localhost:5432/postgres?binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
     username: food_admin
     password: food_admin
     driver-class-name: org.postgresql.Driver
@@ -46,10 +47,9 @@ kafka-producer-config:
   retry-count: 5
 
 kafka-consumer-config:
-  key-serializer: org.apache.kafka.common.serialization.StringSerializer
-  value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
   payment-consumer-group-id: payment-topic-consumer
-  customer-group-id: payment-topic-consumer
   auto-offset-reset: earliest
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
@@ -62,4 +62,4 @@ kafka-consumer-config:
   max-poll-records: 500
   max-partition-fetch-bytes-default: 1048576
   max-partition-fetch-bytes-boost-factor: 1
-  poll-time-ms: 150
+  poll-timeout-ms: 150

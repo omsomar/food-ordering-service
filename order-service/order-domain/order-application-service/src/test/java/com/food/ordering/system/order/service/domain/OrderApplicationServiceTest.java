@@ -1,24 +1,25 @@
 package com.food.ordering.system.order.service.domain;
 
-import com.food.order.system.order.service.domain.dto.create.CreateOrderCommandDTO;
-import com.food.order.system.order.service.domain.dto.create.CreatedOrderResponseDTO;
-import com.food.order.system.order.service.domain.dto.create.OrderAddressDTO;
-import com.food.order.system.order.service.domain.dto.create.OrderItemDTO;
-import com.food.order.system.order.service.domain.mapper.OrderDataMapper;
-import com.food.order.system.order.service.domain.ports.input.service.OrderApplicationService;
-import com.food.order.system.order.service.domain.ports.output.repository.CustomerRepository;
-import com.food.order.system.order.service.domain.ports.output.repository.OrderRepository;
-import com.food.order.system.order.service.domain.ports.output.repository.RestaurantRepository;
-import com.food.ordering.system.domain.entity.Customer;
-import com.food.ordering.system.domain.entity.Order;
-import com.food.ordering.system.domain.entity.Product;
-import com.food.ordering.system.domain.entity.Restaurant;
-import com.food.ordering.system.domain.valueobject.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import com.food.ordering.system.order.service.domain.dto.create.CreateOrderCommandDTO;
+import com.food.ordering.system.order.service.domain.dto.create.CreatedOrderResponseDTO;
+import com.food.ordering.system.order.service.domain.dto.create.OrderAddressDTO;
+import com.food.ordering.system.order.service.domain.dto.create.OrderItemDTO;
+import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;
+import com.food.ordering.system.order.service.domain.ports.input.service.OrderApplicationService;
+import com.food.ordering.system.order.service.domain.ports.output.repository.CustomerRepository;
+import com.food.ordering.system.order.service.domain.ports.output.repository.OrderRepository;
+import com.food.ordering.system.order.service.domain.ports.output.repository.RestaurantRepository;
+import com.food.ordering.system.order.service.domain.entity.Customer;
+import com.food.ordering.system.order.service.domain.entity.Order;
+import com.food.ordering.system.order.service.domain.entity.Product;
+import com.food.ordering.system.order.service.domain.entity.Restaurant;
+import com.food.ordering.system.order.service.domain.valueobject.CustomerId;
+import com.food.ordering.system.order.service.domain.valueobject.Money;
+import com.food.ordering.system.order.service.domain.valueobject.OrderId;
+import com.food.ordering.system.order.service.domain.valueobject.OrderStatus;
+import com.food.ordering.system.order.service.domain.valueobject.ProductId;
+import com.food.ordering.system.order.service.domain.valueobject.RestaurantId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -63,7 +64,7 @@ class OrderApplicationServiceTest {
         createOrderCommand = CreateOrderCommandDTO.builder()
                 .customerId(CUSTOMER_ID)
                 .restaurantId(RESTAURANT_ID)
-                .orderAddress(OrderAddressDTO.builder()
+                .address(OrderAddressDTO.builder()
                         .street("street_1")
                         .postalCode("1000AB")
                         .city("Paris")
@@ -86,7 +87,7 @@ class OrderApplicationServiceTest {
         createOrderCommandWrongPrice = CreateOrderCommandDTO.builder()
                 .customerId(CUSTOMER_ID)
                 .restaurantId(RESTAURANT_ID)
-                .orderAddress(OrderAddressDTO.builder()
+                .address(OrderAddressDTO.builder()
                         .street("street_1")
                         .postalCode("1000AB")
                         .city("Paris")
@@ -109,7 +110,7 @@ class OrderApplicationServiceTest {
         createOrderCommandWrongProductPrice = CreateOrderCommandDTO.builder()
                 .customerId(CUSTOMER_ID)
                 .restaurantId(RESTAURANT_ID)
-                .orderAddress(OrderAddressDTO.builder()
+                .address(OrderAddressDTO.builder()
                         .street("street_1")
                         .postalCode("1000AB")
                         .city("Paris")

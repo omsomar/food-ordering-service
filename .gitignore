@@ -4,3 +4,8 @@
 .idea
 /target
 **/target/**
+/infraestructure/docker-compose/volumes/kafka/broker-1/**
+/infraestructure/docker-compose/volumes/kafka/broker-2/**
+/infraestructure/docker-compose/volumes/kafka/broker-3/**
+/infraestructure/docker-compose/volumes/zookeeper/data/**
+/infraestructure/docker-compose/volumes/zookeeper/transactions/**
